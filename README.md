@@ -1,4 +1,4 @@
-# mac-bigscreen-app-launcher
+# Mac BigScreen App Launcher
 
 A customisable app launcher for MacOS to allow couch gaming automatically on gamepad command.
 
