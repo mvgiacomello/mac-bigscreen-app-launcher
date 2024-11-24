@@ -69,10 +69,10 @@ export class GamepadHandler extends EventEmitter {
       const apps = [
         {
           name: 'Gran Turismo 4',
-          path: '/Applications/PCSX2.app',
+          path: '/Applications/PCSX2.app/Contents/MacOS/PCSX2',
           arguments: [
             '-fastboot',
-            // '-fullscreen',
+            '-fullscreen',
             '-nogui',
             '-state',
             '1',
@@ -81,28 +81,28 @@ export class GamepadHandler extends EventEmitter {
           ]
         }
       ]
-      if (!this.childApp) {
-        this.childApp = spawn('open', [apps[0].path, '--args', ...apps[0].arguments], {
-          detached: true
-        })
-        this.childApp.stdout.on('data', (data) => {
-          console.log(`stdout: ${data}`)
-        })
+      this.childApp = spawn(apps[0].path, apps[0].arguments, {
+        detached: true
+      })
+      this.childApp.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`)
+      })
 
-        this.childApp.stderr.on('data', (data) => {
-          console.error(`stderr: ${data}`)
-        })
+      this.childApp.stderr.on('data', (data) => {
+        console.error(`stderr: ${data}`)
+      })
 
-        this.childApp.on('close', (code) => {
-          console.log(`child process exited with code ${code}`)
-        })
-      } else {
-        console.log('Game is already running')
-      }
+      this.childApp.on('close', (code) => {
+        console.log(`child process exited with code ${code}`)
+      })
     })
     gamecontroller.on('b:down', () => {
       console.log('Button B pressed, killing game!')
-      process.kill(this.childApp.pid, 'SIGKILL')
+      this.childApp?.kill('SIGKILL')
+      // Refocus on the main window
+      setTimeout(() => {
+        BrowserWindow.getAllWindows()[0]?.focus()
+      }, 2000)
     })
     gamecontroller.on('x:down', () => {
       console.log('Button X pressed, printing game subprocess!')

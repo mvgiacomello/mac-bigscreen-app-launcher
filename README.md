@@ -1,10 +1,12 @@
 # mac-bigscreen-app-launcher
 
-A minimal Electron application with TypeScript
+A customisable app launcher for MacOS to allow couch gaming automatically on gamepad command.
 
 ## Recommended IDE Setup
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [VSCode](https://code.visualstudio.com/)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
 ## Project Setup
 
@@ -27,15 +29,8 @@ $ npm install
 $ npm run dev
 ```
 
-### Build
+### Build Distribution
 
 ```bash
-# For windows
-$ npm run build:win
-
-# For macOS
-$ npm run build:mac
-
-# For Linux
-$ npm run build:linux
+$ npm run dist
 ```
