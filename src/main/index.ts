@@ -7,6 +7,21 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { GamepadHandler, GamepadHandlerEvents } from './gamepad'
 import icon from '../../resources/icon.png?asset'
 import trayIcon from '../../resources/tray.png?asset'
+import fs from 'node:fs'
+import path from 'node:path'
+
+// Config file
+const configFilePath = path.join(app.getPath('userData'), 'config.json')
+console.log('configFilePath: ', configFilePath)
+
+// Check if config file exists
+if (!fs.existsSync(configFilePath)) {
+  fs.writeFileSync(configFilePath, JSON.stringify({}))
+}
+
+// Read config file
+const configFile = fs.readFileSync(configFilePath, 'utf8')
+console.log('configFile contents: ', JSON.parse(configFile))
 
 // Tray Button
 let tray: Tray | null = null
