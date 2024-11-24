@@ -66,34 +66,36 @@ export class GamepadHandler extends EventEmitter {
     })
     gamecontroller.on('a:down', () => {
       console.log('Button A pressed, launching game!')
+      // TODO: This needs to go into a config file and be loaded dynamically
       const apps = [
         {
           name: 'Gran Turismo 4',
           path: '/Applications/PCSX2.app/Contents/MacOS/PCSX2',
           arguments: [
-            '-fastboot',
-            '-fullscreen',
-            '-nogui',
-            '-state',
-            '1',
-            '--',
-            '/Users/mau/Games/ROMS/PS2/Gran Turismo 4 (USA).iso'
+            '-fastboot', // Ignores the BIOS
+            '-fullscreen', // Fullscreen mode
+            '-nogui', // No PCSX2 Gui
+            '-state', // Load a savestate
+            '1', // Slot 1
+            '--', // End of PCSX2 arguments
+            '/Users/mau/Games/ROMS/PS2/Gran Turismo 4 (USA).iso' // Path to the game
           ]
         }
       ]
-      this.childApp = spawn(apps[0].path, apps[0].arguments, {
+      const game = apps[0]
+      this.childApp = spawn(game.path, game.arguments, {
         detached: true
       })
       this.childApp.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`)
+        console.log(`${game.name} (stdout): ${data}`)
       })
 
       this.childApp.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`)
+        console.error(`${game.name} (stderr): ${data}`)
       })
 
       this.childApp.on('close', (code) => {
-        console.log(`child process exited with code ${code}`)
+        console.log(`${game.name}: child process exited with code ${code}`)
       })
     })
     gamecontroller.on('b:down', () => {
