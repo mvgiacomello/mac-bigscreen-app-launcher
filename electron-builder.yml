@@ -1,5 +1,5 @@
 appId: org.mac-bigscreen-app-launcher.app
-productName: mac-bigscreen-app-launcher
+productName: BigScreen App Launcher
 directories:
   buildResources: build
 files:
@@ -14,6 +14,7 @@ files:
 asarUnpack:
   - resources/**
 mac:
+  icon: resources/icon.icns
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
     - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.

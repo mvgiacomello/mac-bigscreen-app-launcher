@@ -84,3 +84,7 @@ app.whenReady().then(() => {
   // Handle Gamepad
   gamepadHandler.emit(GamepadHandlerEvents.ELECTRON_READY)
 })
+
+app.on('window-all-closed', () => {
+  // Do nothing
+})
